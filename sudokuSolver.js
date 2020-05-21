@@ -62,42 +62,10 @@ var sudokuSolver = function(){
 	var zeroMap = [];
 
 	// предварительно создадим наборы значений, которые могут быть в строке, столбце и квадрате
-	var rowPossible	= [[true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
+	var rowPossible  = Array(...Array(9)).map(() => (Array(...Array(9)).map(() => true)));
+	var colPossible	= Array(...Array(9)).map(() => (Array(...Array(9)).map(() => true)));
+	var squarePossible = Array(...Array(9)).map(() => (Array(...Array(9)).map(() => true)));
 
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true]];
-
-	var colPossible	= [[true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true]];
-
-	var squarePossible=[[true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true],
-					   [true,true,true,  true,true,true,  true,true,true]];
-	
 	// уберем из возможных значений те, что уже заполнены
 	for (var i = 0; i < 9; i++){
 		for (var j = 0; j < 9; j++){
