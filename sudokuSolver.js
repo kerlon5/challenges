@@ -29,7 +29,7 @@ var sudokuSolver = function(){
 			if (row_sum !== 45 || col_sum !== 45) return false;
 		}
 
-		// проверка квадратов
+		// проверка квадратов 
 		for (var k = 0; k< 3; k++){
 			for (var h = 0; h < 3; h++){
 
