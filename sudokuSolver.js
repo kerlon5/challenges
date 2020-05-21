@@ -10,41 +10,54 @@ var sudokuSolver = function(){
 				  [0,0,0,4,1,9,0,0,5],
 				  [0,0,0,0,8,0,0,7,9]];
 
+	/*
+	sudoku =     [[0,0,0,0,7,8,0,0,0],
+				  [1,8,0,0,2,0,0,0,0],
+				  [0,0,4,0,6,1,8,0,9],
+				  [0,0,0,0,0,2,7,5,0],
+				  [7,0,0,0,0,0,4,0,0],
+				  [2,0,0,7,0,5,6,0,3],
+				  [5,0,1,0,0,4,0,7,0],
+				  [0,0,0,0,1,0,9,0,0],
+				  [0,4,9,0,0,0,0,3,8]];*/
+    
+    // номер квадрата по координатам
 	var getSquare = function(i,j){
-		if (i < 3){
-			if (j < 3){
-				return 1;
-			}
-			else if (j < 6){
-				return 2;
-			}
-			else{
-				return 3;
-			}
-		}
-		else if (i < 6){
-			if (j < 3){
-				return 4;
-			}
-			else if (j < 6){
-				return 5;
-			}
-			else{
-				return 6;
-			}
-		}
-		else {
-			if (j < 3){
-				return 7;
-			}
-			else if (j < 6){
-				return 8;
-			}
-			else{
-				return 9;
-			}
-		}
+		return 3*Math.trunc(i/3) + Math.trunc(j/3);
 	}
+
+	// проверяет корректность решения через сумму в строках, стобцах и квадратах
+	var checkSolution = function(sudoku){
+		
+		// проверка столбцов и строк
+		for (var i = 0; i < 9; i++){
+			var row_sum = 0;
+			var col_sum = 0;
+			for (var j = 0; j < 9; j++){
+				row_sum += sudoku[i][j];
+				col_sum += sudoku[j][i];
+			}
+			if (row_sum !== 45 || col_sum !== 45) return false;
+		}
+
+		// проверка квадратов
+		for (var k = 0; k< 3; k++){
+			for (var h = 0; h < 3; h++){
+
+				var square_sum = 0;
+				for (var i = 0; i < 3; i++){
+					for (var j = 0; j < 3; j++){
+						square_sum += sudoku[i + 3*k][j + 3*h];
+					}
+				}
+
+				if (square_sum !== 45) return false;
+			}
+		}
+
+		return true;
+	}
+
 	// нужно составить карту всех нулей и возможных их значений
 	var zeroMap = [];
 
@@ -85,19 +98,19 @@ var sudokuSolver = function(){
 					   [true,true,true,  true,true,true,  true,true,true],
 					   [true,true,true,  true,true,true,  true,true,true]];
 	
+	// уберем из возможных значений те, что уже заполнены
 	for (var i = 0; i < 9; i++){
 		for (var j = 0; j < 9; j++){
 			if (sudoku[i][j] > 0){
 				rowPossible[i][sudoku[i][j] - 1] = false;
 				colPossible[j][sudoku[i][j] - 1] = false;
-				squarePossible[getSquare(i,j) - 1][sudoku[i][j] - 1] = false;
+				squarePossible[getSquare(i,j)][sudoku[i][j] - 1] = false;
 			}
 		}
 	}
 
 	for (var i = 0; i < 9; i++){
 		for (var j = 0; j < 9; j++){
-			//console.log(sudoku[i][j]);
 			if (sudoku[i][j] == 0){
 				var el = {
 					row : i,
@@ -106,24 +119,52 @@ var sudokuSolver = function(){
 					values : []
 				}
 				for (var k = 0; k < 9; k++){
-					el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square - 1][k]);
+					el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square][k]);
 				}
 				zeroMap.push(el);
 			}
 		}
 	}
 
-	for (var i = 0; i< zeroMap.length; i++){
-		var c = 0;
-		var val = 0;
-		for (var j = 0; j< 9;j++){
-			if (zeroMap[i].values[j]) { c++; val = j;}
+	while(zeroMap.length > 0){
+
+		for (var i = 0; i< zeroMap.length; i++){
+			var c = 0;
+			var val = 0;
+			for (var j = 0; j< 9;j++){
+				if (zeroMap[i].values[j]) { c++; val = j;}
+			}
+			if (c == 1){
+				sudoku[zeroMap[i].row][zeroMap[i].col] = val+1;
+				rowPossible[zeroMap[i].row][val] = false;
+				colPossible[zeroMap[i].col][val] = false;
+				squarePossible[zeroMap[i].square][val] = false;
+			}
 		}
-		if (c == 1){
-			console.log(zeroMap[i].row +1, zeroMap[i].col +1, val +1);
+
+		zeroMap = [];
+
+		for (var i = 0; i < 9; i++){
+			for (var j = 0; j < 9; j++){
+
+				if (sudoku[i][j] == 0){
+					var el = {
+						row : i,
+						col : j,
+						square : getSquare(i,j),
+						values : []
+					}
+					for (var k = 0; k < 9; k++){
+						el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square][k]);
+					}
+					zeroMap.push(el);
+				}
+			}
 		}
+
 	}
-	debugger;
-}
 
 	console.timeEnd('sudokuSolver');
+	console.table(sudoku);
+	return checkSolution(sudoku);
+}
