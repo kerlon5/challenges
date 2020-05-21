@@ -9,17 +9,6 @@ var sudokuSolver = function(){
 				  [0,6,0,0,0,0,2,8,0],
 				  [0,0,0,4,1,9,0,0,5],
 				  [0,0,0,0,8,0,0,7,9]];
-
-	/*
-	sudoku =     [[0,0,0,0,7,8,0,0,0],
-				  [1,8,0,0,2,0,0,0,0],
-				  [0,0,4,0,6,1,8,0,9],
-				  [0,0,0,0,0,2,7,5,0],
-				  [7,0,0,0,0,0,4,0,0],
-				  [2,0,0,7,0,5,6,0,3],
-				  [5,0,1,0,0,4,0,7,0],
-				  [0,0,0,0,1,0,9,0,0],
-				  [0,4,9,0,0,0,0,3,8]];*/
     
     // номер квадрата по координатам
 	var getSquare = function(i,j){
@@ -77,22 +66,25 @@ var sudokuSolver = function(){
 		}
 	}
 
-	for (var i = 0; i < 9; i++){
-		for (var j = 0; j < 9; j++){
-			if (sudoku[i][j] == 0){
-				var el = {
-					row : i,
-					col : j,
-					square : getSquare(i,j),
-					values : []
+	var createZeroMap = function(){
+		for (var i = 0; i < 9; i++){
+			for (var j = 0; j < 9; j++){
+				if (sudoku[i][j] == 0){
+					var el = {
+						row : i,
+						col : j,
+						square : getSquare(i,j),
+						values : []
+					}
+					for (var k = 0; k < 9; k++){
+						el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square][k]);
+					}
+					zeroMap.push(el);
 				}
-				for (var k = 0; k < 9; k++){
-					el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square][k]);
-				}
-				zeroMap.push(el);
 			}
 		}
 	}
+	createZeroMap();
 
 	while(zeroMap.length > 0){
 
@@ -111,25 +103,7 @@ var sudokuSolver = function(){
 		}
 
 		zeroMap = [];
-
-		for (var i = 0; i < 9; i++){
-			for (var j = 0; j < 9; j++){
-
-				if (sudoku[i][j] == 0){
-					var el = {
-						row : i,
-						col : j,
-						square : getSquare(i,j),
-						values : []
-					}
-					for (var k = 0; k < 9; k++){
-						el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square][k]);
-					}
-					zeroMap.push(el);
-				}
-			}
-		}
-
+		createZeroMap();
 	}
 
 	console.timeEnd('sudokuSolver');
