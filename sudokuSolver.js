@@ -1,4 +1,5 @@
 var sudokuSolver = function(){
+	console.time('sudokuSolver');
 	var sudoku = [[5,3,0,0,7,0,0,0,0],
 				  [6,0,0,1,9,5,0,0,0],
 				  [0,9,8,0,0,0,0,6,0],
@@ -124,3 +125,5 @@ var sudokuSolver = function(){
 	}
 	debugger;
 }
+
+	console.timeEnd('sudokuSolver');
