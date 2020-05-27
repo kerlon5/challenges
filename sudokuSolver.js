@@ -1,4 +1,5 @@
 var sudokuSolver = function(){
+	
 	console.time('sudokuSolver');
 	var sudoku = [[5,3,0,0,7,0,0,0,0],
 				  [6,0,0,1,9,5,0,0,0],
@@ -49,6 +50,7 @@ var sudokuSolver = function(){
 
 	// нужно составить карту всех нулей и возможных их значений
 	var zeroMap = [];
+	var squareMap = Array.from(Array(9), () => new Array());
 
 	// предварительно создадим наборы значений, которые могут быть в строке, столбце и квадрате
 	var rowPossible  = Array(...Array(9)).map(() => (Array(...Array(9)).map(() => true)));
@@ -65,7 +67,7 @@ var sudokuSolver = function(){
 			}
 		}
 	}
-
+	
 	var createZeroMap = function(){
 		for (var i = 0; i < 9; i++){
 			for (var j = 0; j < 9; j++){
@@ -80,14 +82,15 @@ var sudokuSolver = function(){
 						el.values.push(rowPossible[i][k] && colPossible[j][k] && squarePossible[el.square][k]);
 					}
 					zeroMap.push(el);
+					squareMap[el.square].push(el);
 				}
 			}
 		}
 	}
 	createZeroMap();
-
+	
 	while(zeroMap.length > 0){
-
+		debugger;
 		for (var i = 0; i< zeroMap.length; i++){
 			var c = 0;
 			var val = 0;
@@ -102,7 +105,28 @@ var sudokuSolver = function(){
 			}
 		}
 
+		for (var s = 0; s < 9; s++){
+			for (var i = 0; i < 9; i++){
+				var unique = 0;
+				var si = 0;
+				for (var v = 0; v < squareMap[s].length; v++){
+					if (squareMap[s][v].values[i]) {
+						unique++;
+						if (unique == 1) si = v;
+						else si = -1;
+					} 
+				}
+				if (s == 0 && i == 8) debugger;
+				if (si > -1 && unique > 0){
+					sudoku[[squareMap[s][si].row]][squareMap[s][si].col] = i+1; 
+				}
+			}
+
+		}
+
 		zeroMap = [];
+		squareMap = Array.from(Array(9), () => new Array());
+		
 		createZeroMap();
 	}
 
