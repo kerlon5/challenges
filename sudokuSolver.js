@@ -90,7 +90,7 @@ var sudokuSolver = function(){
 	createZeroMap();
 	
 	while(zeroMap.length > 0){
-		debugger;
+
 		for (var i = 0; i< zeroMap.length; i++){
 			var c = 0;
 			var val = 0;
@@ -116,9 +116,11 @@ var sudokuSolver = function(){
 						else si = -1;
 					} 
 				}
-				if (s == 0 && i == 8) debugger;
 				if (si > -1 && unique > 0){
 					sudoku[[squareMap[s][si].row]][squareMap[s][si].col] = i+1; 
+					rowPossible[squareMap[s][si].row][i] = false;
+					colPossible[squareMap[s][si].col][i] = false;
+					squarePossible[squareMap[s][si].square][i] = false;
 				}
 			}
 
