@@ -14,7 +14,7 @@
           "group": "A",
           "value": 803,
           "colname": "level3"
-        },
+        }
  
       ],
       "colname": "level2"
@@ -69,7 +69,7 @@
           "group": "A",
           "value": 10,
           "colname": "level3"
-        },
+        }
       ],
       "colname": "level2"
     }
