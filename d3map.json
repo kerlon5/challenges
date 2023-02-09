@@ -4,13 +4,13 @@
       "name": "EUR",
       "children": [
         {
-          "name": "mister_a",
+          "name": "mister_ГПБ",
           "group": "A",
           "value": 365,
           "colname": "level3"
         },
         {
-          "name": "mister_b",
+          "name": "mister_Прочие",
           "group": "A",
           "value": 803,
           "colname": "level3"
@@ -24,14 +24,8 @@
       "children": [
         {
           "name": "mister_e",
-          "group": "C",
-          "value": 14,
-          "colname": "level3"
-        },
-        {
-          "name": "mister_f",
           "group": "A",
-          "value": 19,
+          "value": 14,
           "colname": "level3"
         },
         {
@@ -45,7 +39,13 @@
           "group": "B",
           "value": 7,
           "colname": "level3"
-        }
+        },
+        {
+          "name": "mister_f",
+          "group": "C",
+          "value": 19,
+          "colname": "level3"
+        },
       ],
       "colname": "level2"
     },
@@ -54,19 +54,19 @@
       "children": [
         {
           "name": "mister_i",
-          "group": "B",
+          "group": "A",
           "value": 1184,
           "colname": "level3"
         },
         {
           "name": "mister_j",
-          "group": "A",
+          "group": "B",
           "value": 578,
           "colname": "level3"
         },
         {
           "name": "mister_k",
-          "group": "A",
+          "group": "B",
           "value": 10,
           "colname": "level3"
         }
