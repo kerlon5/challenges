@@ -24,13 +24,13 @@
       "children": [
         {
           "name": "mister_e",
-          "group": "A",
+          "group": "C",
           "value": 14,
           "colname": "level3"
         },
         {
           "name": "mister_g",
-          "group": "B",
+          "group": "A",
           "value": 8,
           "colname": "level3"
         },
@@ -42,7 +42,7 @@
         },
         {
           "name": "mister_f",
-          "group": "C",
+          "group": "B",
           "value": 19,
           "colname": "level3"
         }
@@ -54,19 +54,19 @@
       "children": [
         {
           "name": "mister_i",
-          "group": "A",
+          "group": "B",
           "value": 1184,
           "colname": "level3"
         },
         {
           "name": "mister_j",
-          "group": "B",
+          "group": "A",
           "value": 578,
           "colname": "level3"
         },
         {
           "name": "mister_k",
-          "group": "B",
+          "group": "D",
           "value": 10,
           "colname": "level3"
         }
