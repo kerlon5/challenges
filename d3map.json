@@ -22,22 +22,22 @@
       "children": [
         {
           "name": "mister_e",
-          "value": 14,
+          "value": 140,
           "colname": "level3"
         },
         {
           "name": "mister_g",
-          "value": 8,
+          "value": 80,
           "colname": "level3"
         },
         {
           "name": "mister_h",
-          "value": 7,
+          "value": 70,
           "colname": "level3"
         },
         {
           "name": "mister_f",
-          "value": 19,
+          "value": 190,
           "colname": "level3"
         }
       ],
